@@ -35,13 +35,18 @@
     }
     
     $sql = "INSERT INTO datausage (DataUsageMB, DataLimitMB, RolloverLimitMB, TopupLimitMB, TotalRemainingDataMB, TalkUsage, TalkLimit, SmsUsage, SmsLimit, timestamp)
-            VALUES (" . $_GET['DataUsageMB'] . ", " . $_GET['DataLimitMB'] . ", " . $_GET['RolloverLimitMB'] . ", " . $_GET['TopupLimitMB'] . ", " . $_GET['TotalRemainingDataMB'] . ", " . HHMMSS2sec($_GET['TalkUsage']) . ", " . HHMMSS2sec($_GET['TalkLimit']) . ", " . $_GET['SmsUsage'] . ", " . $_GET['SmsLimit'] . ", " . strtotime($_GET['DataDate']) . "); ALTER TABLE datausage AUTO_INCREMENT = 1";
+            VALUES (" . $_GET['DataUsageMB'] . ", " . $_GET['DataLimitMB'] . ", " . $_GET['RolloverLimitMB'] . ", " . $_GET['TopupLimitMB'] . ", " . $_GET['TotalRemainingDataMB'] . ", " . HHMMSS2sec($_GET['TalkUsage']) . ", " . HHMMSS2sec($_GET['TalkLimit']) . ", " . $_GET['SmsUsage'] . ", " . $_GET['SmsLimit'] . ", " . strtotime($_GET['DataDate']) . ");";
     
     header('Content-Type: application/json');
     if ($conn->query($sql) === TRUE) {
         echo "{ \"status\": \"success\" }";
     } else {
-        echo "{ \"status\": \"error\" }";
+        $sql = "ALTER TABLE datausage AUTO_INCREMENT = 1";
+        if ($conn->query($sql) === TRUE) {
+            echo "{ \"status\": \"error\", \"AI_FIXED\": true }";
+        } else {
+            echo "{ \"status\": \"error\", \"AI_FIXED\": false }";
+        }
     }
     
     $conn->close();
