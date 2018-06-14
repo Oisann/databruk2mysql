@@ -34,7 +34,7 @@
         return $seconds;
     }
     
-    $sql = "INSERT INTO datausage (DataUsageMB, DataLimitMB, RolloverLimitMB, TopupLimitMB, TotalRemainingDataMB, TalkUsage, TalkLimit, SmsUsage, SmsLimit, timestamp)
+    $sql = "ALTER TABLE datausage AUTO_INCREMENT = 1; INSERT INTO datausage (DataUsageMB, DataLimitMB, RolloverLimitMB, TopupLimitMB, TotalRemainingDataMB, TalkUsage, TalkLimit, SmsUsage, SmsLimit, timestamp)
             VALUES (" . $_GET['DataUsageMB'] . ", " . $_GET['DataLimitMB'] . ", " . $_GET['RolloverLimitMB'] . ", " . $_GET['TopupLimitMB'] . ", " . $_GET['TotalRemainingDataMB'] . ", " . HHMMSS2sec($_GET['TalkUsage']) . ", " . HHMMSS2sec($_GET['TalkLimit']) . ", " . $_GET['SmsUsage'] . ", " . $_GET['SmsLimit'] . ", " . strtotime($_GET['DataDate']) . ")";
     
     header('Content-Type: application/json');
