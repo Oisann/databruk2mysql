@@ -34,6 +34,10 @@
         return $seconds;
     }
     
+    // PLEASE NOTE: This is not safe at all! Please don't use this in production!
+    // This is a project I use on my LAN ONLY, it does not interact with the internet at all!
+    // It gets data from another application and the data never gets to this application if it's not safe to put in the database this way!
+    // It will be updated in the future, but I didn't want to spend the time to do it correctly when I made it. Sorry!
     $sql = "INSERT INTO datausage (DataUsageMB, DataLimitMB, RolloverLimitMB, TopupLimitMB, TotalRemainingDataMB, TalkUsage, TalkLimit, SmsUsage, SmsLimit, timestamp)
             VALUES (" . $_GET['DataUsageMB'] . ", " . $_GET['DataLimitMB'] . ", " . $_GET['RolloverLimitMB'] . ", " . $_GET['TopupLimitMB'] . ", " . $_GET['TotalRemainingDataMB'] . ", " . HHMMSS2sec($_GET['TalkUsage']) . ", " . HHMMSS2sec($_GET['TalkLimit']) . ", " . $_GET['SmsUsage'] . ", " . $_GET['SmsLimit'] . ", " . strtotime($_GET['DataDate']) . ");";
     
